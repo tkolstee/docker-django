@@ -7,7 +7,9 @@ A Docker container based upon nginx and gunicorn, which is designed to serve up 
 Simple scenario:
 
 ```$ django-admin startproject myproject```
+
 Edit myproject/myproject/settings.py, adding server hostname(s) to ALLOWED_HOSTS
+
 ```
 $ docker run \
   -e PROJECT_NAME=myproject \
@@ -17,7 +19,7 @@ $ docker run \
   -v $(pwd)/myprject:/django \
   tkolstee/docker-django:latest
 ```
-The test site is now accessible as http://myhostname.domain.com:8888/
+The test site is now accessible as ```http://myhostname.domain.com:8888/```
 
 
 
