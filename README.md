@@ -6,30 +6,20 @@ A Docker container based upon nginx and gunicorn, which is designed to serve up 
 
 Simple scenario:
 
-- In an empty directory, clone this repository and rename the checkout's directory to "build"
-- Place your django project in the same directory as "build" - in this example "myproj"
-- Create docker-compose.yml with the following content:
-
+```$ django-admin startproject myproject```
+Edit myproject/myproject/settings.py, adding server hostname(s) to ALLOWED_HOSTS
 ```
----
-version: '3'
-services:
-  dj:
-    build:
-      context: build
-    container_name: dj
-    hostname: dj
-    ports:
-    - 8000:80
-    volumes:
-    - ./logs:/logs
-    - ./myproj:/django
-    environment:
-    - PROJECT_NAME=myproj
+$ docker run \
+  -e PROJECT_NAME=myproject \
+  -e SERVER_NAMES=myhostname.domain.com,myhostname \
+  -p 8888:80 \
+  -v $(pwd)/logs:/logs \
+  -v $(pwd)/myprject:/django \
+  tkolstee/docker-django:latest
 ```
+The test site is now accessible as http://myhostname.domain.com:8888/
 
-- Run docker-compose build && docker-compose up -d
-- Django project is now accessible from port 8000 on the host
+
 
 ## Variables:
 
